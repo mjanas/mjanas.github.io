@@ -1,1 +1,42 @@
-Hello World
+<!DOCTYPE html>
+<html>
+
+<!-- Load external scripts -->
+<!-- <script src="https://unpkg.com/topojson-client@3"></script> -->
+ <!-- <script src="https://cdn.jsdelivr.net/npm/d3@7/+esm"></script> -->
+ <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js"></script> -->
+
+<script src="d3.v7.min.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS 416 Narrative Visualization Project</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>2024 Presidential Election Polls</h1>
+    <div>
+        <p>
+            In November, the United States will have its presidential election.
+            In this dashboard, we'll explore the historical polling data for the top three candidates
+            and whether current events, national and international, had an impact on their poll scores.
+        </p>
+        <p>
+            This dashboard was inspired by <a href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/">FiveThirtyEight's dashboard</a>.
+            The dataset is also from FiveThirtyEight, though I'm using data up to July 7, 2024. The latest version can be downloaded <a href="https://projects.fivethirtyeight.com/polls/data/president_polls.csv">here.</a>
+        </p>
+        </div>
+    <div id="chart"></div>
+    <script type="module" src="script.js"></script>
+    <div>
+        <p>
+            Test asdf
+        </p>
+    </div>
+    <div id="test"></div>
+    <script type="module" src="test.js"></script>
+</body>
+
+</html>

@@ -1,1 +1,3 @@
-# mjanas.github.io
+# README
+
+Repository for Narrative Visualization project
