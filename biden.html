@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<script src="js/d3.v7.min.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS 416 Narrative Visualization Project</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="content">
+        <h1>2024 Presidential Election Polls</h1>
+        <p>
+            In November, the United States will have its presidential election.
+            In this dashboard, we'll explore the historical polling data for the top three candidates
+            and whether current events, national and international, had an impact on their poll scores.
+        </p>
+        <p>
+            This dashboard was inspired by <a
+                href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/">FiveThirtyEight's
+                dashboard</a>.
+            The dataset is also from FiveThirtyEight, though I'm using data up to July 20, 2024. The latest version can
+            be downloaded <a href="https://projects.fivethirtyeight.com/polls/data/president_polls.csv">here.</a>
+        </p>
+        <h2>Joseph Biden</h2>
+        <p>
+            Joseph (Joe) Biden is the current president of the United States, and he is seeking reelection in 2024.
+            He is also a former Vice President (2009-2017) and a former US Senator of Delaware (1973-2009).
+        </p>
+        <p>
+            The graph below shows a rough average of the daily polling score for Biden from January - mid July 2024.
+            There are also some annotations that call out important events that have occurred in the past 7 months
+            that may have made an impact on Biden's poll scores.
+        </p>
+        <p>
+            The buttons below will take back to the first visualization, or to the next visualization.
+            You can also hover over the chart to see more information in a tooltip!
+        </p>
+    </div>
+
+    <div class="navigation">
+        <input type="button" onclick="location.href='index.html';" value="Previous" />
+        <input type="button" onclick="location.href='trump.html';" value="Next" />
+    </div>
+
+    <div class="container">
+        <script type="module" src="js/bidenChart.js"></script>
+        <div id="bidenChart"></div>
+    </div>
+
+    <div class="content">
+        <h2>More about annotations</h2>
+        <p>
+            The annotations were selected from the following two Wikipedia pages:
+            <ul>
+                <li><a href="https://en.wikipedia.org/wiki/Joe_Biden_2024_presidential_campaign"> Joe Biden 2024 presidential campaign</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/2024_in_the_United_States">2024 in the United States</a></li>
+            </ul>
+        </p>
+    </div>
+</body>
+</html>

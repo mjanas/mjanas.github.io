@@ -1,16 +1,100 @@
 body {
     font-family: Helvetica, sans-serif;
-    background-color: #f0f0f0;
-    margin: 100px;
+    background-color: #F0F0F0;
+    margin: 50px;
 }
 
 h1 {
-    color: #333;
+    color: #1A1A1A;
     text-align: center;
+    padding: 10px;
 }
 
-#chart {
+h2 {
+    color: #1A1A1A;
+    text-align: center;
+    padding: 10px;
+}
+
+.content {
+    text-align: start;
+    margin: 10px;
+    padding: 10px;
+    text-wrap: pretty;
+}
+
+.container {
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: baseline;
+    padding: 10px;
+}
+
+#tooltip {
+    opacity: 0;
+    position: absolute;
+    background-color: #F0F0F0;
+    border: solid 2px #1A1A1A;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#hoverline {
+    stroke: #1A1A1A;
+    stroke-width: 1;
+    opacity: 1;
+  }
+  
+  .overlay {
+    fill: none;
+    pointer-events: all;
+  }
+
+#chartline {
+    fill: none;
+    stroke-width: 3;
+}
+
+#annotation_text {
+    font-size: 12px;
+    font-weight: bold;
+    fill: black;
+}
+
+#annotation_line {
+    stroke: #1A1A1A;
+    stroke-width: 1;
+}
+
+.navigation {
+    text-align: center; 
+    margin: 20px 0;
+}
+
+.navigation input[type="button"] {
+    background-color: #5E636E; /* Blue background color */
+    border: none; /* Remove the default border */
+    color: #F0F0F0; /* White text color */
+    padding: 10px 20px; /* Add padding inside the buttons */
+    margin: 0 10px; /* Add spacing between buttons */
+    font-size: 16px; /* Set font size */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    border-radius: 5px; /* Round the corners */
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.navigation input[type="button"]:hover {
+    background-color: #121315;
+}
+
+pre {
+    margin: 0;
+    text-align: start;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    line-height: 1.5;
 }

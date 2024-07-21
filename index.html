@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<!-- Load external scripts -->
-<!-- <script src="https://unpkg.com/topojson-client@3"></script> -->
- <!-- <script src="https://cdn.jsdelivr.net/npm/d3@7/+esm"></script> -->
- <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js"></script> -->
-
-<script src="d3.v7.min.js"></script>
+<script src="js/d3.v7.min.js"></script>
 
 <head>
     <meta charset="UTF-8">
@@ -16,27 +11,73 @@
 </head>
 
 <body>
-    <h1>2024 Presidential Election Polls</h1>
-    <div>
+    <div class="content">
+        <h1>2024 Presidential Election Polls</h1>
         <p>
             In November, the United States will have its presidential election.
             In this dashboard, we'll explore the historical polling data for the top three candidates
             and whether current events, national and international, had an impact on their poll scores.
         </p>
         <p>
-            This dashboard was inspired by <a href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/">FiveThirtyEight's dashboard</a>.
-            The dataset is also from FiveThirtyEight, though I'm using data up to July 7, 2024. The latest version can be downloaded <a href="https://projects.fivethirtyeight.com/polls/data/president_polls.csv">here.</a>
+            This dashboard was inspired by <a
+                href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/">FiveThirtyEight's
+                dashboard</a>.
+            The dataset is also from FiveThirtyEight, though I'm using data up to July 20, 2024. The latest version can
+            be downloaded <a href="https://projects.fivethirtyeight.com/polls/data/president_polls.csv">here.</a>
         </p>
-        </div>
-    <div id="chart"></div>
-    <script type="module" src="script.js"></script>
-    <div>
+        <h2>Average Poll Scores of the Top 3 Presidential Candidates</h2>
         <p>
-            Test asdf
+            The top candidates who are running for president in 2024 include the following: current president <b>Joseph
+                Biden</b>, former president <b>Donald Trump</b>,
+            and <b>Robert F. Kennedy Jr.</b>, the son of Robert F. Kennedy and nephew of former president John F.
+            Kennedy.
+        </p>
+        <p>
+            The graph below shows a rough average of the daily polling score of each candidate from January - mid July 2024. 
+            More details on the dataset and calcuations can be found below the chart.
+        </p>
+        <p>
+            The button below will take you to the next visualization.
+            You can also hover over the chart to see more information in a tooltip!
         </p>
     </div>
-    <div id="test"></div>
-    <script type="module" src="test.js"></script>
+
+    <div class="navigation">
+        <input type="button" onclick="location.href='biden.html';" value="Next" />
+    </div>
+
+    <div class="container">
+        <script type="module" src="js/mainChart.js"></script>
+        <div id="mainChart"></div>
+    </div>
+
+    <div class="content">
+        <h2>More about this dataset</h2>
+        <p>
+            As mentioned earlier, this dataset is taken from FiveThirtyEight. 
+            However, this dataset is quite large and includes data for <b>all</b> current and former candidates.
+        </p>
+        <p>
+            I used a <a href="https://learn.microsoft.com/en-us/azure/data-explorer/start-for-free-web-ui">free Azure Data Explorer cluster</a> 
+            to explore the dataset; clean and filter to the top 3 candidates and polls only from 2024; and to aggregate multiple daily poll scores into averages.
+            First, I ingested the dataset into my free Azure Data Explorer cluster, adjusting the schema to make sure fields such as datetimes were imported correctly.
+            Then, I ran the following query to select and aggregate the data to what I needed:
+            <pre>
+                <code>
+                    let data = polls_2024_07_20
+                    | where start_date > datetime(2024-01-01) and answer in ('Biden', 'Trump', 'Kennedy');
+                    let stats = data | summarize avg(pct), stdev(pct) by answer;
+                    data
+                    | join kind=leftouter stats on $left.answer == $right.answer
+                    | extend min_pct = avg_pct - 1 * stdev_pct, max_pct = avg_pct + 1 * stdev_pct
+                    | where pct > min_pct and pct < max_pct
+                    | summarize round(avg(pct), 2) by start_date, answer
+                    | project Date = start_date, Candidate = answer, AverageScore = avg_pct
+                </code>
+            </pre>
+            From Azure Data Explorer, I was able to export these query results to a csv file, and use that to build my d3 charts.
+        </p>
+    </div>
 </body>
 
 </html>
