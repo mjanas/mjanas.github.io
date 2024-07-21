@@ -49,9 +49,9 @@ const annotations = [
     { Date: new Date("2024-01-13"), Score: 40.95, Label: "Jan 13: Israel-Hamas protests in Washington DC", LineOffset: -60, TextOffset: -15, Align: "start" },
     { Date: new Date("2024-03-07"), Score: 42.2, Label: "March 7: Biden delivers his third State of the Union Address", LineOffset: 100, TextOffset: 5, Align: "middle" },
     { Date: new Date("2024-04-24"), Score: 41.8, Label: "April 24: Biden signs bill requiring ByteDance to sell TikTok", LineOffset: -100, TextOffset: -15, Align: "middle" },
-    { Date: new Date("2024-06-11"), Score: 40.5, Label: "June 11: Hunter Biden convicted of 3 felony counts", LineOffset: -100, TextOffset: -15, Align: "middle" }, 
     { Date: new Date("2024-06-27"), Score: 40.6, Label: "June 27: First 2024 presidential candidates debate", LineOffset: 100, TextOffset: 5, Align: "end" }, 
-    { Date: new Date("2024-07-11"), Score: 42, Label: "July 11: Biden holds press conference to address age concerns", LineOffset: 100, TextOffset: 5, "Align": "end" }
+    { Date: new Date("2024-07-11"), Score: 42, Label: "July 11: Biden holds press conference to address age concerns", LineOffset: 100, TextOffset: 5, "Align": "end" },
+    { Date: new Date("2024-07-21"), Score: 44, Label: "July 21: Biden drops out of the race", LineOffset: -200, TextOffset: -15, "Align": "end" }
 ];
 
 var tooltip = d3.select("body")
@@ -85,7 +85,7 @@ function getScoresForDate(array, targetDate) {
     return text;
 }
 
-d3.csv("data/polls_aggregated_2024_07_20.csv")
+d3.csv("data/polls_aggregated_2024_07_21.csv")
     .then(data => {
         data.forEach(d => {
             d.Date = parseTime(d.Date);
@@ -100,8 +100,7 @@ d3.csv("data/polls_aggregated_2024_07_20.csv")
         // Source for curve: https://benclinkinbeard.com/d3tips/creating-svg-paths-with-d3line/
         const line = d3.line()
             .x(d => xScale(d.Date))
-            .y(d => yScale(d.AverageScore))
-            .curve(d3.curveCatmullRom.alpha(0.1));
+            .y(d => yScale(d.AverageScore));
 
         svg.append("path")
             .datum(points)

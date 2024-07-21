@@ -75,7 +75,7 @@ function getScoresForDate(array, targetDate) {
     return text;
 }
 
-d3.csv("data/polls_aggregated_2024_07_20.csv")
+d3.csv("data/polls_aggregated_2024_07_21.csv")
     .then(data => {
         data.forEach(d => {
             d.Date = parseTime(d.Date);
@@ -87,7 +87,7 @@ d3.csv("data/polls_aggregated_2024_07_20.csv")
         const dates = data.map(i => i.Date);
         const dateGroups = d3.groups(data, d => d.Date);
 
-        const colors = ["#244DC7", "#C11D1D", "#383838"];
+        const colors = ["#244DC7", "#C11D1D", "#383838", "#652BA3"];
 
         const colorScale = d3.scaleOrdinal()
             .domain(candidates.map(d => d[0]))

@@ -42,14 +42,11 @@ svg.append("text")
     .attr("y", 15)
     .text("Average Poll Score");
 
-const candidate = "Trump";
-const lineColor = "#C11D1D";
+const candidate = "Harris";
+const lineColor = "#652BA3";
 const annotations = [
-    { Date: new Date("2024-02-16"), Score: 46.1, Label: "Feb 16: New York civil investigation of The Trump Organization", LineOffset: 30, TextOffset: 5, Align: "middle" },
-    { Date: new Date("2024-03-04"), Score: 44, Label: "March 4: Trump v Anderson ruling", LineOffset: -80, TextOffset: -15, Align: "end" },
-    { Date: new Date("2024-05-30"), Score: 44.4, Label: "May 30: Trump found guilty of 34 counts of falsifying business records", LineOffset: -120, TextOffset: -15, Align: "end" },
-    { Date: new Date("2024-07-01"), Score: 44.2, Label: "July 1: Trump v United States ruling", LineOffset: -150, TextOffset: -15, Align: "end" }, 
-    { Date: new Date("2024-07-13"), Score: 45.3, Label: "July 13: Trump is shot in an assassination attempt at a campaign rally", LineOffset: 50, TextOffset: 5, "Align": "end" }
+    { Date: new Date("2024-03-07"), Score: 41, Label: "March 7: Biden delivers his third State of the Union Address", LineOffset: 100, TextOffset: 5, Align: "middle" },
+    { Date: new Date("2024-07-21"), Score: 42, Label: "Biden drops out of the race and endorses Kamala Harris", LineOffset: 100, TextOffset: 5, Align: "end" }
 ];
 
 var tooltip = d3.select("body")
@@ -98,7 +95,8 @@ d3.csv("data/polls_aggregated_2024_07_21.csv")
         // Source for curve: https://benclinkinbeard.com/d3tips/creating-svg-paths-with-d3line/
         const line = d3.line()
             .x(d => xScale(d.Date))
-            .y(d => yScale(d.AverageScore));
+            .y(d => yScale(d.AverageScore))
+            // .curve(d3.curveCatmullRom.alpha(0.1));
 
         svg.append("path")
             .datum(points)
@@ -166,4 +164,4 @@ d3.csv("data/polls_aggregated_2024_07_21.csv")
             });
     });
 
-trumpChart.append(svg.node());
+harrisChart.append(svg.node());
