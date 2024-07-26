@@ -22,13 +22,13 @@
             This dashboard was inspired by <a
                 href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/">FiveThirtyEight's
                 dashboard</a>.
-            The dataset is also from FiveThirtyEight, though I'm using data up to July 20, 2024. The latest version can
+            The dataset is also from FiveThirtyEight, and I'm using data up to July 26, 2024. The latest version can
             be downloaded <a href="https://projects.fivethirtyeight.com/polls/data/president_polls.csv">here.</a>
         </p>
         <h2>Average Poll Scores of the Top 3 Presidential Candidates</h2>
         <p>
             The top candidates who are running for president in 2024 include the following: current president <b>Joseph
-                Biden</b>, former president <b>Donald Trump</b>,
+                Biden</b> (until July 21, 2024), current vice president Kamala Harris (starting from July 21, 2024), former president <b>Donald Trump</b>,
             and <b>Robert F. Kennedy Jr.</b>, the son of Robert F. Kennedy and nephew of former president John F.
             Kennedy.
         </p>
@@ -43,12 +43,11 @@
     </div>
 
     <div class="navigation">
-        <input type="button" onclick="location.href='biden.html';" value="Next" />
-    </div>
-
-    <div class="container">
-        <script type="module" src="js/mainChart.js"></script>
-        <div id="mainChart"></div>
+        <input type="button" onclick="location.href='index.html';" value="Main" disabled />
+        <input type="button" onclick="location.href='biden.html';" value="Biden" />
+        <input type="button" onclick="location.href='harris.html';" value="Harris" />
+        <input type="button" onclick="location.href='trump.html';" value="Trump" />
+        <input type="button" onclick="location.href='overview.html';" value="Overview" />
     </div>
 
     <div class="content">
@@ -59,12 +58,12 @@
         </p>
         <p>
             I used a <a href="https://learn.microsoft.com/en-us/azure/data-explorer/start-for-free-web-ui">free Azure Data Explorer cluster</a> 
-            to explore the dataset; clean and filter to the top 3 candidates and polls only from 2024; and to aggregate multiple daily poll scores into averages.
+            to explore the dataset; clean and filter to the top 4 candidates and polls only from 2024; and to aggregate multiple daily poll scores into averages.
             First, I ingested the dataset into my free Azure Data Explorer cluster, adjusting the schema to make sure fields such as datetimes were imported correctly.
             Then, I ran the following query to select and aggregate the data to what I needed:
             <pre>
                 <code>
-                    let data = polls_2024_07_20
+                    let data = polls_2024_07_26
                     | where start_date > datetime(2024-01-01) and answer in ('Biden', 'Trump', 'Kennedy');
                     let stats = data | summarize avg(pct), stdev(pct) by answer;
                     data

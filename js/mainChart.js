@@ -10,7 +10,7 @@ const marginLeft = 50;
 const parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%SZ");
 
 const xScale = d3.scaleUtc()
-    .domain([new Date("2024-01-01"), new Date("2024-07-15")])
+    .domain([new Date("2024-01-01"), new Date("2024-07-25")])
     .range([marginLeft, width - marginRight]);
 
 const yScale = d3.scaleLinear()
@@ -75,7 +75,18 @@ function getScoresForDate(array, targetDate) {
     return text;
 }
 
-d3.csv("data/polls_aggregated_2024_07_21.csv")
+const annotations = [
+    { Candidate: 'Biden', Date: new Date("2024-01-02"), Score: 40.67, Label: "Jan 2: 40.67%", LineOffset: -30, TextOffset: -15, Align: "start" },
+    { Candidate: 'Biden', Date: new Date("2024-07-21"), Score: 42, Label: "July 21: 40%", LineOffset: -50, TextOffset: -15, Align: "end" },
+    { Candidate: 'Trump', Date: new Date("2024-01-02"), Score: 43.9, Label: "Jan 2: 43.9%", LineOffset: 30, TextOffset: 5, Align: "start" },
+    { Candidate: 'Trump', Date: new Date("2024-07-21"), Score: 44, Label: "July 21: 44%", LineOffset: 40, TextOffset: 5, Align: "end" },
+    { Candidate: 'Harris', Date: new Date("2024-01-25"), Score: 42, Label: "Jan 25: 42%", LineOffset: -42, TextOffset: -15, Align: "start" },
+    { Candidate: 'Harris', Date: new Date("2024-07-22"), Score: 43.43, Label: "July 22: 43.43%", LineOffset: -100, TextOffset: -15, Align: "end" },
+    { Candidate: 'Kennedy', Date: new Date("2024-01-02"), Score: 10.5, Label: "Jan 2: 10.5%", LineOffset: 50, TextOffset: 5, Align: "start" },
+    { Candidate: 'Kennedy', Date: new Date("2024-07-24"), Score: 3, Label: "July 21: 3%", LineOffset: 100, TextOffset: 5, Align: "end" }
+];
+
+d3.csv("data/polls_aggregated_2024_07_26.csv")
     .then(data => {
         data.forEach(d => {
             d.Date = parseTime(d.Date);
@@ -105,6 +116,30 @@ d3.csv("data/polls_aggregated_2024_07_21.csv")
                 .attr("id", "chartline")
                 .attr("stroke", colorScale(candidate))
                 .attr("d", line);
+
+            const subsetAnnotations = annotations.filter(item => item.Candidate === candidate);
+            console.log(subsetAnnotations);
+
+            svg.selectAll("annotation-text")
+                .data(subsetAnnotations)
+                .enter()
+                .append("text")
+                .attr("id", "annotation_text")
+                .attr("x", d => xScale(d.Date))
+                .attr("y", d => yScale(d.Score)  - d.LineOffset - d.TextOffset)
+                .text(d => d.Label)
+                .style("fill", d => colorScale(candidate))
+                .style("text-anchor", d => d.Align);
+
+            svg.selectAll("annotation-line")
+                .data(annotations)
+                .enter()
+                .append("line")
+                .attr("id", "annotation_line")
+                .attr("x1", d => xScale(d.Date))
+                .attr("y1", d => yScale(d.Score) - d.LineOffset)
+                .attr("x2", d => xScale(d.Date))
+                .attr("y2", d => yScale(d.Score));
         });
 
         svg.append("rect")

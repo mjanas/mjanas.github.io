@@ -10,7 +10,7 @@ const marginLeft = 50;
 const parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%SZ");
 
 const xScale = d3.scaleUtc()
-    .domain([new Date("2024-01-01"), new Date("2024-07-15")])
+    .domain([new Date("2024-01-01"), new Date("2024-07-25")])
     .range([marginLeft, width - marginRight]);
 
 const yScale = d3.scaleLinear()
@@ -46,7 +46,7 @@ const candidate = "Harris";
 const lineColor = "#652BA3";
 const annotations = [
     { Date: new Date("2024-03-07"), Score: 41, Label: "March 7: Biden delivers his third State of the Union Address", LineOffset: 100, TextOffset: 5, Align: "middle" },
-    { Date: new Date("2024-07-21"), Score: 42, Label: "Biden drops out of the race and endorses Kamala Harris", LineOffset: 100, TextOffset: 5, Align: "end" }
+    { Date: new Date("2024-07-21"), Score: 43, Label: "Biden drops out of the race and endorses Kamala Harris", LineOffset: 100, TextOffset: 5, Align: "end" }
 ];
 
 var tooltip = d3.select("body")
@@ -80,7 +80,7 @@ function getScoresForDate(array, targetDate) {
     return text;
 }
 
-d3.csv("data/polls_aggregated_2024_07_21.csv")
+d3.csv("data/polls_aggregated_2024_07_26.csv")
     .then(data => {
         data.forEach(d => {
             d.Date = parseTime(d.Date);

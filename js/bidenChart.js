@@ -10,7 +10,7 @@ const marginLeft = 50;
 const parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%SZ");
 
 const xScale = d3.scaleUtc()
-    .domain([new Date("2024-01-01"), new Date("2024-07-15")])
+    .domain([new Date("2024-01-01"), new Date("2024-07-25")])
     .range([marginLeft, width - marginRight]);
 
 const yScale = d3.scaleLinear()
@@ -51,7 +51,7 @@ const annotations = [
     { Date: new Date("2024-04-24"), Score: 41.8, Label: "April 24: Biden signs bill requiring ByteDance to sell TikTok", LineOffset: -100, TextOffset: -15, Align: "middle" },
     { Date: new Date("2024-06-27"), Score: 40.6, Label: "June 27: First 2024 presidential candidates debate", LineOffset: 100, TextOffset: 5, Align: "end" }, 
     { Date: new Date("2024-07-11"), Score: 42, Label: "July 11: Biden holds press conference to address age concerns", LineOffset: 100, TextOffset: 5, "Align": "end" },
-    { Date: new Date("2024-07-21"), Score: 44, Label: "July 21: Biden drops out of the race", LineOffset: -200, TextOffset: -15, "Align": "end" }
+    { Date: new Date("2024-07-21"), Score: 42.5, Label: "July 21: Biden drops out of the race", LineOffset: -200, TextOffset: -15, "Align": "end" }
 ];
 
 var tooltip = d3.select("body")
@@ -85,7 +85,7 @@ function getScoresForDate(array, targetDate) {
     return text;
 }
 
-d3.csv("data/polls_aggregated_2024_07_21.csv")
+d3.csv("data/polls_aggregated_2024_07_26.csv")
     .then(data => {
         data.forEach(d => {
             d.Date = parseTime(d.Date);

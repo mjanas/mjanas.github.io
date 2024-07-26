@@ -22,19 +22,19 @@
             This dashboard was inspired by <a
                 href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/">FiveThirtyEight's
                 dashboard</a>.
-            The dataset is also from FiveThirtyEight, though I'm using data up to July 26, 2024. The latest version can
+            The dataset is also from FiveThirtyEight, and I'm using data up to July 26, 2024. The latest version can
             be downloaded <a href="https://projects.fivethirtyeight.com/polls/data/president_polls.csv">here.</a>
         </p>
-        <h2>Kamala Harris</h2>
+        <h2>Average Poll Scores of the Top 3 Presidential Candidates</h2>
         <p>
-            Kamala Harris is the current vice president of the United States, and she is seeking election to the office of the presidency in 2024.
-            She is also a former US Senator of California (2017-2021).
+            The top candidates who are running for president in 2024 include the following: current president <b>Joseph
+                Biden</b> (until July 21, 2024), current vice president Kamala Harris (starting from July 21, 2024), former president <b>Donald Trump</b>,
+            and <b>Robert F. Kennedy Jr.</b>, the son of Robert F. Kennedy and nephew of former president John F.
+            Kennedy.
         </p>
         <p>
-            The graph below shows a rough average of the polling score for Harris from January - mid July 2024.
-            There are also some annotations that call out important events that have occurred in the past 7 months
-            that may have made an impact on Harris's poll scores. Because her candidacy was announced on July 21,
-            there is insufficient historical data to draw meaningful insights for the future.
+            The graph below shows a rough average of the daily polling score of each candidate from January - mid July 2024. 
+            More details on the dataset and calcuations can be found below the chart.
         </p>
         <p>
             The button below can be used to navigate through the scenes of the visualization.
@@ -45,25 +45,16 @@
     <div class="navigation">
         <input type="button" onclick="location.href='index.html';" value="Main" />
         <input type="button" onclick="location.href='biden.html';" value="Biden" />
-        <input type="button" onclick="location.href='harris.html';" value="Harris" disabled />
+        <input type="button" onclick="location.href='harris.html';" value="Harris" />
         <input type="button" onclick="location.href='trump.html';" value="Trump" />
-        <input type="button" onclick="location.href='overview.html';" value="Overview" />
+        <input type="button" onclick="location.href='overview.html';" value="Overview" disabled />
     </div>
 
     <div class="container">
-        <script type="module" src="js/harrisChart.js"></script>
-        <div id="harrisChart"></div>
+        <script type="module" src="js/mainChart.js"></script>
+        <div id="mainChart"></div>
     </div>
 
-    <div class="content">
-        <h2>More about annotations</h2>
-        <p>
-            The annotations were selected from the following two Wikipedia pages:
-            <ul>
-                <li><a href="https://en.wikipedia.org/wiki/Joe_Biden_2024_presidential_campaign"> Joe Biden 2024 presidential campaign</a></li>
-                <li><a href="https://en.wikipedia.org/wiki/2024_in_the_United_States">2024 in the United States</a></li>
-            </ul>
-        </p>
-    </div>
 </body>
+
 </html>
