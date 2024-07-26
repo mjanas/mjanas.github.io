@@ -83,7 +83,7 @@ const annotations = [
     { Candidate: 'Harris', Date: new Date("2024-01-25"), Score: 42, Label: "Jan 25: 42%", LineOffset: -42, TextOffset: -15, Align: "start" },
     { Candidate: 'Harris', Date: new Date("2024-07-22"), Score: 43.43, Label: "July 22: 43.43%", LineOffset: -100, TextOffset: -15, Align: "end" },
     { Candidate: 'Kennedy', Date: new Date("2024-01-02"), Score: 10.5, Label: "Jan 2: 10.5%", LineOffset: 50, TextOffset: 5, Align: "start" },
-    { Candidate: 'Kennedy', Date: new Date("2024-07-24"), Score: 3, Label: "July 21: 3%", LineOffset: 100, TextOffset: 5, Align: "end" }
+    { Candidate: 'Kennedy', Date: new Date("2024-07-24"), Score: 3, Label: "July 24: 3%", LineOffset: 100, TextOffset: 5, Align: "end" }
 ];
 
 d3.csv("data/polls_aggregated_2024_07_26.csv")
@@ -118,7 +118,6 @@ d3.csv("data/polls_aggregated_2024_07_26.csv")
                 .attr("d", line);
 
             const subsetAnnotations = annotations.filter(item => item.Candidate === candidate);
-            console.log(subsetAnnotations);
 
             svg.selectAll("annotation-text")
                 .data(subsetAnnotations)
@@ -128,7 +127,7 @@ d3.csv("data/polls_aggregated_2024_07_26.csv")
                 .attr("x", d => xScale(d.Date))
                 .attr("y", d => yScale(d.Score)  - d.LineOffset - d.TextOffset)
                 .text(d => d.Label)
-                .style("fill", d => colorScale(candidate))
+                .style("fill", colorScale(candidate))
                 .style("text-anchor", d => d.Align);
 
             svg.selectAll("annotation-line")

@@ -97,7 +97,6 @@ d3.csv("data/polls_aggregated_2024_07_26.csv")
         const dates = points.map(i => i.Date);
         const dateGroups = d3.groups(points, d => d.Date);
 
-        // Source for curve: https://benclinkinbeard.com/d3tips/creating-svg-paths-with-d3line/
         const line = d3.line()
             .x(d => xScale(d.Date))
             .y(d => yScale(d.AverageScore));

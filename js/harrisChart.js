@@ -46,7 +46,7 @@ const candidate = "Harris";
 const lineColor = "#652BA3";
 const annotations = [
     { Date: new Date("2024-03-07"), Score: 41, Label: "March 7: Biden delivers his third State of the Union Address", LineOffset: 100, TextOffset: 5, Align: "middle" },
-    { Date: new Date("2024-07-21"), Score: 43, Label: "Biden drops out of the race and endorses Kamala Harris", LineOffset: 100, TextOffset: 5, Align: "end" }
+    { Date: new Date("2024-07-21"), Score: 43, Label: "July 21: Biden drops out of the race and endorses Kamala Harris", LineOffset: 100, TextOffset: 5, Align: "end" }
 ];
 
 var tooltip = d3.select("body")
@@ -92,11 +92,9 @@ d3.csv("data/polls_aggregated_2024_07_26.csv")
         const dates = points.map(i => i.Date);
         const dateGroups = d3.groups(points, d => d.Date);
 
-        // Source for curve: https://benclinkinbeard.com/d3tips/creating-svg-paths-with-d3line/
         const line = d3.line()
             .x(d => xScale(d.Date))
-            .y(d => yScale(d.AverageScore))
-            // .curve(d3.curveCatmullRom.alpha(0.1));
+            .y(d => yScale(d.AverageScore));
 
         svg.append("path")
             .datum(points)
