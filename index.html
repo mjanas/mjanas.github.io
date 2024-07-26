@@ -43,10 +43,6 @@
     <div class="content">
         <h2>More about this dataset</h2>
         <p>
-            As mentioned earlier, this dataset is taken from FiveThirtyEight. 
-            However, this dataset is quite large and includes data for <b>all</b> current and former candidates.
-        </p>
-        <p>
             I used a <a href="https://learn.microsoft.com/en-us/azure/data-explorer/start-for-free-web-ui">free Azure Data Explorer cluster</a> 
             to explore the dataset; clean and filter to the top 4 candidates and polls only from 2024; and to aggregate multiple daily poll scores into averages.
             First, I ingested the dataset into my free Azure Data Explorer cluster, adjusting the schema to make sure fields such as datetimes were imported correctly.
@@ -54,7 +50,7 @@
             <pre>
                 <code>
                     let data = polls_2024_07_26
-                    | where start_date > datetime(2024-01-01) and answer in ('Biden', 'Trump', 'Kennedy');
+                    | where start_date > datetime(2024-01-01) and answer in ('Biden', 'Harris', 'Trump', 'Kennedy');
                     let stats = data | summarize avg(pct), stdev(pct) by answer;
                     data
                     | join kind=leftouter stats on $left.answer == $right.answer
