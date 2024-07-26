@@ -37,46 +37,24 @@
             More details on the dataset and calcuations can be found below the chart.
         </p>
         <p>
-            The button below will take you to the next visualization.
-            You can also hover over the chart to see more information in a tooltip!
+            The button below can be used to navigate through the scenes of the visualization.
+            You can also hover over the charts to see more information in a tooltip!
         </p>
     </div>
 
     <div class="navigation">
-        <input type="button" onclick="location.href='index.html';" value="Main" disabled />
+        <input type="button" onclick="location.href='index.html';" value="Main" />
         <input type="button" onclick="location.href='biden.html';" value="Biden" />
         <input type="button" onclick="location.href='harris.html';" value="Harris" />
         <input type="button" onclick="location.href='trump.html';" value="Trump" />
-        <input type="button" onclick="location.href='overview.html';" value="Overview" />
+        <input type="button" onclick="location.href='overview.html';" value="Overview" disabled />
     </div>
 
-    <div class="content">
-        <h2>More about this dataset</h2>
-        <p>
-            As mentioned earlier, this dataset is taken from FiveThirtyEight. 
-            However, this dataset is quite large and includes data for <b>all</b> current and former candidates.
-        </p>
-        <p>
-            I used a <a href="https://learn.microsoft.com/en-us/azure/data-explorer/start-for-free-web-ui">free Azure Data Explorer cluster</a> 
-            to explore the dataset; clean and filter to the top 4 candidates and polls only from 2024; and to aggregate multiple daily poll scores into averages.
-            First, I ingested the dataset into my free Azure Data Explorer cluster, adjusting the schema to make sure fields such as datetimes were imported correctly.
-            Then, I ran the following query to select and aggregate the data to what I needed:
-            <pre>
-                <code>
-                    let data = polls_2024_07_26
-                    | where start_date > datetime(2024-01-01) and answer in ('Biden', 'Trump', 'Kennedy');
-                    let stats = data | summarize avg(pct), stdev(pct) by answer;
-                    data
-                    | join kind=leftouter stats on $left.answer == $right.answer
-                    | extend min_pct = avg_pct - 1 * stdev_pct, max_pct = avg_pct + 1 * stdev_pct
-                    | where pct > min_pct and pct < max_pct
-                    | summarize round(avg(pct), 2) by start_date, answer
-                    | project Date = start_date, Candidate = answer, AverageScore = avg_pct
-                </code>
-            </pre>
-            From Azure Data Explorer, I was able to export these query results to a csv file, and use that to build my d3 charts.
-        </p>
+    <div class="container">
+        <script type="module" src="js/mainChart.js"></script>
+        <div id="mainChart"></div>
     </div>
+
 </body>
 
 </html>
